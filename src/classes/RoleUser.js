@@ -9,7 +9,7 @@ export default class RoleUser extends Model {
     return {
       id: this.uid(),
       user_id: this.attr(),
-      role_id: this.attr(),
+      role_id: this.attr()
     };
   }
 }

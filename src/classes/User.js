@@ -18,7 +18,7 @@ export default class User extends Model {
       profile: this.hasOne(Profile, "user_id"),
       lists: this.hasMany(List, "user_id"),
       items: this.hasManyThrough(Item, List, "user_id", "list_id"),
-      roles: this.belongsToMany(Role, RoleUser, "user_id", "role_id"),
+      roles: this.belongsToMany(Role, RoleUser, "user_id", "role_id")
     };
   }
 }

@@ -15,7 +15,7 @@ export default class List extends Model {
 
       // belongs to a user
       user: this.belongsTo(User, "user_id"),
-      items: this.hasMany(Item, "list_id"),
+      items: this.hasMany(Item, "list_id")
     };
   }
 }

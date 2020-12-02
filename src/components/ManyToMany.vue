@@ -19,7 +19,7 @@ export default {
       return User.query()
         .with("roles")
         .get();
-    },
+    }
   },
   mounted() {
     User.insert({
@@ -31,13 +31,13 @@ export default {
           roles: [
             {
               id: 43,
-              title: "admin",
+              title: "admin"
             },
             {
               id: 44,
-              title: "designer",
-            },
-          ],
+              title: "designer"
+            }
+          ]
         },
         {
           id: 29,
@@ -46,11 +46,11 @@ export default {
           roles: [
             {
               id: 44,
-              title: "designer",
-            },
-          ],
-        },
-      ],
+              title: "designer"
+            }
+          ]
+        }
+      ]
     });
   },
   methods: {
@@ -58,11 +58,11 @@ export default {
       Role.update({
         where: 44,
         data: {
-          title: "viewer",
-        },
+          title: "viewer"
+        }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -20,5 +20,5 @@ database.register(Role);
 database.register(RoleUser);
 
 export default new Vuex.Store({
-  plugins: [VuexORM.install(database)],
+  plugins: [VuexORM.install(database)]
 });

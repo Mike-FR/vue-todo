@@ -1,5 +1,5 @@
 import { Model } from "@vuex-orm/core";
-import User from './User'
+import User from "./User";
 
 export default class Profile extends Model {
   static entity = "profiles";
@@ -12,7 +12,7 @@ export default class Profile extends Model {
       user_id: this.attr(null),
 
       // relationships
-      user: this.belongsTo(User, 'user_id')
+      user: this.belongsTo(User, "user_id")
     };
   }
 }

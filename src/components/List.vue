@@ -1,12 +1,12 @@
 <template>
   <div>
     <h2>{{ list.title }}</h2>
-    <input type="text" v-model="form.body" />
-    <button @click="addItem">Add item</button>
+    <v-text-field type="text" v-model="form.body"></v-text-field>
+    <v-btn @click="addItem">Add item</v-btn>
     <ul>
       <li v-for="item in filledList.items" :key="item.id">
         {{ item.body }}
-        <button @click="deleteItem(item)">Delete</button>
+        <v-btn @click="deleteItem(item)">Delete</v-btn>
       </li>
     </ul>
   </div>
@@ -43,8 +43,7 @@ export default {
       Item.insert({ data: this.form });
     },
     deleteItem(item) {
-      Item.delete(item.id
-      );
+      Item.delete(item.id);
     },
   },
 };
