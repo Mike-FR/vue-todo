@@ -1,7 +1,35 @@
 <template>
-  <div id="app">
-    <List v-for="list in user.lists" :key="list.id" :list="list" />
-  </div>
+  <v-app>
+    <!-- Must have the app property -->
+    <v-app-bar app color="orange" flat class="text-center">
+      <v-toolbar-title class="mx-auto">Notes app</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <v-container>
+        <v-text-field
+          v-model="form.title"
+          label="Créer une nouvelle note..."
+          solo-inverted
+          counter
+          maxlength="25"
+          @keydown.enter="createList"
+          class="create-input mt-6 mx-auto"
+        >
+          <template #append>
+            <v-fade-transition>
+              <v-icon v-if="form.title" color="orange" @click="createList">
+                mdi-plus-circle
+              </v-icon>
+            </v-fade-transition>
+          </template>
+        </v-text-field>
+        <v-container class="d-flex flex-wrap">
+          <List v-for="list in user.lists" :key="list.id" :list="list" />
+        </v-container>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -12,14 +40,14 @@ import ListComponent from "./components/List";
 export default {
   name: "App",
   components: {
-    List: ListComponent
+    List: ListComponent,
   },
   data() {
     return {
       form: {
         title: "",
-        user_id: 28
-      }
+        user_id: 28,
+      },
     };
   },
   computed: {
@@ -28,57 +56,64 @@ export default {
         .with("lists.items")
         .with("items")
         .find(28);
-    }
+    },
   },
   methods: {
-    addList() {
+    createList() {
       List.insert({ data: this.form });
-    }
+      this.form.title = "";
+    },
   },
   beforeMount() {
     User.insert({
       data: [
         {
           id: 28,
-          name: "Luke",
-          email: "Luke@gmail.com",
+          name: "Mike",
+          email: "mike@gmail.com",
           lists: [
             {
               id: 55,
-              title: "shopping",
+              title: "Courses",
               items: [
                 {
                   id: 1,
-                  body: "banana"
+                  body: "banana",
                 },
                 {
                   id: 2,
-                  body: "apple"
-                }
-              ]
+                  body: "apple",
+                },
+              ],
             },
             {
               id: 50,
-              title: "life goals"
+              title: "Achats",
             },
             {
               id: 52,
-              title: "friends",
+              title: "Anniversaire",
               items: [
                 {
                   id: 12,
-                  body: "Bob"
+                  body: "Bob",
                 },
                 {
                   id: 22,
-                  body: "Pete"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                  body: "Pete",
+                },
+              ],
+            },
+          ],
+        },
+      ],
     });
-  }
+  },
 };
 </script>
+
+<style lang="scss">
+.create-input {
+  width: 500px;
+}
+</style>
