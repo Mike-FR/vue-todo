@@ -1,19 +1,6 @@
 <template>
   <div id="app">
-    <ManyToMany/>
-    <div style="float:left">
-      <h1>{{ user.name }}</h1>
-
-      <input type="text" v-model="form.title" />
-      <button @click="addList">Add list</button>
-
-      <ListComponent v-for="list in user.lists" :key="list.id" :list="list" />
-    </div>
-    <div style="float: right">
-      <ul>
-        <li v-for="item in user.items" :key="item.id" v-text="item.body"></li>
-      </ul>
-    </div>
+    <List v-for="list in user.lists" :key="list.id" :list="list" />
   </div>
 </template>
 
@@ -21,20 +8,18 @@
 import List from "./classes/List";
 import User from "./classes/User";
 import ListComponent from "./components/List";
-import ManyToMany from "./components/ManyToMany";
 
 export default {
   name: "App",
   components: {
-    ListComponent,
-    ManyToMany
+    List: ListComponent
   },
   data() {
     return {
       form: {
         title: "",
-        user_id: 28,
-      },
+        user_id: 28
+      }
     };
   },
   computed: {
@@ -43,12 +28,12 @@ export default {
         .with("lists.items")
         .with("items")
         .find(28);
-    },
+    }
   },
   methods: {
     addList() {
       List.insert({ data: this.form });
-    },
+    }
   },
   beforeMount() {
     User.insert({
@@ -64,17 +49,17 @@ export default {
               items: [
                 {
                   id: 1,
-                  body: "banana",
+                  body: "banana"
                 },
                 {
                   id: 2,
-                  body: "apple",
-                },
-              ],
+                  body: "apple"
+                }
+              ]
             },
             {
               id: 50,
-              title: "life goals",
+              title: "life goals"
             },
             {
               id: 52,
@@ -82,18 +67,18 @@ export default {
               items: [
                 {
                   id: 12,
-                  body: "Bob",
+                  body: "Bob"
                 },
                 {
                   id: 22,
-                  body: "Pete",
-                },
-              ],
-            },
-          ],
-        },
-      ],
+                  body: "Pete"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     });
-  },
+  }
 };
 </script>

@@ -20,15 +20,15 @@ export default {
   props: {
     list: {
       required: true,
-      type: List,
-    },
+      type: List
+    }
   },
   data() {
     return {
       form: {
         body: "",
-        list_id: this.list.id,
-      },
+        list_id: this.list.id
+      }
     };
   },
   computed: {
@@ -36,7 +36,7 @@ export default {
       return List.query()
         .with("items")
         .find(this.list.id);
-    },
+    }
   },
   methods: {
     addItem() {
@@ -44,8 +44,8 @@ export default {
     },
     deleteItem(item) {
       Item.delete(item.id);
-    },
-  },
+    }
+  }
 };
 </script>
 

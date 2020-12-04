@@ -11,9 +11,7 @@ export default class List extends Model {
       title: this.attr(""),
       user_id: this.attr(null),
 
-      //relastionships
-
-      // belongs to a user
+      //relastionships : belongs to a user
       user: this.belongsTo(User, "user_id"),
       items: this.hasMany(Item, "list_id")
     };
