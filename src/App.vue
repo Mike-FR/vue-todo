@@ -1,11 +1,35 @@
 <template>
   <v-app>
     <!-- Must have the app property -->
-    <v-app-bar app color="orange" flat class="text-center">
-      <v-toolbar-title class="mx-auto">Notes app</v-toolbar-title>
+    <v-app-bar app color="indigo" dark>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Notes app</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-menu left bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item @click="() => {}">
+            <v-list-item-title @click="deleteAllList"
+              >Tout supprimer</v-list-item-title
+            >
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="main">
       <v-container>
         <v-text-field
           v-model="form.title"
@@ -14,7 +38,7 @@
           counter
           maxlength="25"
           @keydown.enter="createList"
-          class="create-input mt-6 mx-auto"
+          class="create-input mt-12 mx-auto"
         >
           <template #append>
             <v-fade-transition>
@@ -24,7 +48,7 @@
             </v-fade-transition>
           </template>
         </v-text-field>
-        <v-container class="d-flex flex-wrap">
+        <v-container class="d-flex flex-wrap mt-6">
           <List v-for="list in user.lists" :key="list.id" :list="list" />
         </v-container>
       </v-container>
@@ -62,6 +86,9 @@ export default {
     createList() {
       List.insert({ data: this.form });
       this.form.title = "";
+    },
+    deleteAllList() {
+      List.deleteAll();
     },
   },
   beforeMount() {
@@ -113,6 +140,9 @@ export default {
 </script>
 
 <style lang="scss">
+.main {
+  background-color: #e8eaf6;
+}
 .create-input {
   width: 500px;
 }

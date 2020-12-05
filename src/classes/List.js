@@ -9,6 +9,7 @@ export default class List extends Model {
     return {
       id: this.attr(null),
       title: this.attr(""),
+      color: this.attr("#FFFFFF"),
       user_id: this.attr(null),
 
       //relastionships : belongs to a user
