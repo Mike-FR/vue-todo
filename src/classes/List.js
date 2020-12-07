@@ -10,6 +10,7 @@ export default class List extends Model {
       id: this.attr(null),
       title: this.attr(""),
       color: this.attr("#FFFFFF"),
+      checkBoxMode: this.boolean(),
       user_id: this.attr(null),
 
       //relastionships : belongs to a user
