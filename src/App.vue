@@ -12,9 +12,18 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      <v-text-field
+        v-model="search"
+        placeholder="Rechercher..."
+        prepend-inner-icon="mdi-magnify"
+        filled
+        dense
+        clearable
+        class="expanding-search mt-6"
+        :class="{ closed: searchClosed && !search }"
+        @focus="searchClosed = false"
+        @blur="searchClosed = true"
+      ></v-text-field>
 
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -53,7 +62,7 @@
           </template>
         </v-text-field>
         <v-container class="d-flex flex-wrap mt-6">
-          <List v-for="list in user.lists" :key="list.id" :list="list" />
+          <List v-for="list in filteredLists" :key="list.id" :list="list" />
         </v-container>
       </v-container>
     </v-main>
@@ -76,14 +85,21 @@ export default {
         title: "",
         user_id: 28,
       },
+      searchClosed: true,
+      search: "",
     };
   },
   computed: {
     user() {
-      return User.query()
-        .with("lists.items")
-        .with("items")
-        .find(28);
+      return User.find(28);
+    },
+    filteredLists() {
+      return List.query()
+        .where("user_id", this.user.id)
+        .where("title", (value) =>
+          value.toLowerCase().includes(this.search.toLowerCase())
+        )
+        .get();
     },
   },
   methods: {
@@ -137,6 +153,27 @@ export default {
             },
           ],
         },
+        {
+          id: 29,
+          name: "Laura",
+          email: "laura@gmail.com",
+          lists: [
+            {
+              id: 56,
+              title: "Courses",
+              items: [
+                {
+                  id: 21,
+                  body: "fraises",
+                },
+                {
+                  id: 11,
+                  body: "coca",
+                },
+              ],
+            },
+          ],
+        },
       ],
     });
   },
@@ -144,6 +181,24 @@ export default {
 </script>
 
 <style lang="scss">
+.v-input.expanding-search {
+  transition: max-width 0.3s;
+  max-width: 250px;
+  .v-input__slot {
+    cursor: pointer;
+    &::before,
+    &::after {
+      border-color: transparent !important;
+    }
+  }
+  &.closed {
+    max-width: 45px;
+    .v-input__slot {
+      background: transparent !important;
+    }
+  }
+}
+
 .main {
   background-color: #e8eaf6;
 }
