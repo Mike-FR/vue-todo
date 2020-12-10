@@ -39,7 +39,10 @@
         <v-list-item v-else @click="switchCheckboxMode(true)">
           Mode cases à cocher
         </v-list-item>
-        <v-list-item @click="deleteList(list)"> Supprimer </v-list-item>
+        <v-list-item @click="deleteAllItems(list)">
+          Supprimer tous les éléments
+        </v-list-item>
+        <v-list-item @click="deleteList(list)"> Supprimer la note</v-list-item>
       </v-list>
     </v-menu>
     <slot name="second-spacer"> </slot>
@@ -48,6 +51,7 @@
 </template>
 
 <script>
+import Item from "../classes/Item";
 import List from "../classes/List";
 
 export default {
@@ -55,6 +59,15 @@ export default {
     list: {
       type: List,
       required: true,
+    },
+  },
+  computed: {
+    itemsId() {
+      return Item.query()
+        .with("list")
+        .where("list_id", this.list.id)
+        .get()
+        .map((item) => item.id);
     },
   },
   methods: {
@@ -69,6 +82,9 @@ export default {
     },
     deleteList(list) {
       List.delete(list.id);
+    },
+    deleteAllItems() {
+      this.itemsId.forEach((id) => Item.delete(id));
     },
   },
 };
