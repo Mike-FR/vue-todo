@@ -2,7 +2,11 @@
   <v-app>
     <!-- Must have the app property -->
     <v-app-bar app color="indigo" dark>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        ><template>
+          <v-icon>mdi-format-list-bulleted</v-icon>
+        </template></v-app-bar-nav-icon
+      >
 
       <v-toolbar-title>Notes app</v-toolbar-title>
 
