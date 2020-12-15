@@ -12,6 +12,7 @@
 
     <v-text-field
       v-if="oidcIsAuthenticated"
+      v-model="search"
       placeholder="Rechercher une liste..."
       prepend-inner-icon="mdi-magnify"
       filled
