@@ -8,10 +8,11 @@ export default class Item extends Model {
     return {
       id: this.uid(),
       body: this.attr(""),
+      isComplete: this.boolean(),
       list_id: this.attr(null),
 
       //relationships
-      list: this.belongsTo(List, "list_id")
+      list: this.belongsTo(List, "list_id"),
     };
   }
 }
