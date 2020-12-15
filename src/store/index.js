@@ -5,6 +5,9 @@ import Item from "../classes/Item";
 import User from "../classes/User";
 import List from "../classes/List";
 
+import { vuexOidcCreateStoreModule } from "vuex-oidc";
+import { oidcSettings } from "../config/oidc";
+
 Vue.use(Vuex);
 
 const database = new VuexORM.Database();
@@ -14,5 +17,8 @@ database.register(User);
 database.register(List);
 
 export default new Vuex.Store({
-  plugins: [VuexORM.install(database)]
+  modules: {
+    oidcStore: vuexOidcCreateStoreModule(oidcSettings, { namespaced: true, isAuthenticatedBy: 'access_token' }),
+  },
+  plugins: [VuexORM.install(database)],
 });
