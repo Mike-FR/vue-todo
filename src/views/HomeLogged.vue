@@ -4,7 +4,7 @@
     <v-main>
       <v-container>
         <v-text-field
-          v-model="form.title"
+          v-model="listTitle"
           label="Créer une nouvelle note..."
           solo-inverted
           counter
@@ -14,7 +14,7 @@
         >
           <template #append>
             <v-fade-transition>
-              <v-icon v-if="form.title" color="orange" @click="createList">
+              <v-icon v-if="listTitle" color="orange" @click="createList">
                 mdi-plus-circle
               </v-icon>
             </v-fade-transition>
@@ -44,17 +44,14 @@ export default {
   },
   data() {
     return {
-      form: {
-        title: "",
-        user_id: 28,
-      },
+      listTitle: "",
       search: "",
     };
   },
   computed: {
     ...mapGetters("oidcStore", ["oidcIsAuthenticated", "oidcUser"]),
     user() {
-      return User.find(28);
+      return User.find(this.oidcUser.sub);
     },
     filteredLists() {
       return List.query()
@@ -67,35 +64,37 @@ export default {
   },
   methods: {
     createList() {
-      List.insert({ data: this.form });
-      this.form.title = "";
+      List.insert({
+        data: { title: this.listTitle, user_id: this.oidcUser.sub },
+      });
+      this.listTitle = "";
     },
   },
   beforeMount() {
-    User.insert({
-      data: [
-        {
-          id: 28,
-          name: "Mike",
-          email: "mike@gmail.com",
+    if (this.oidcUser.sub === "67edcc6e-f338-4544-af51-2c220f67250b") {
+      User.insert({
+        data: {
+          id: this.oidcUser.sub,
+          name: this.oidcUser.name,
+          email: this.oidcUser.email,
           lists: [
+            {
+              id: 50,
+              title: "Achats",
+            },
             {
               id: 55,
               title: "Courses",
               items: [
                 {
                   id: 1,
-                  body: "banana",
+                  body: "bananes",
                 },
                 {
                   id: 2,
-                  body: "apple",
+                  body: "pommes",
                 },
               ],
-            },
-            {
-              id: 50,
-              title: "Achats",
             },
             {
               id: 52,
@@ -103,20 +102,23 @@ export default {
               items: [
                 {
                   id: 12,
-                  body: "Bob",
+                  body: "Jean",
                 },
                 {
                   id: 22,
-                  body: "Pete",
+                  body: "Fred",
                 },
               ],
             },
           ],
         },
-        {
-          id: 29,
-          name: "Laura",
-          email: "laura@gmail.com",
+      });
+    } else if (this.oidcUser.sub === "7edad362-d5eb-47cd-aa60-e3b9b8b8dd68") {
+      User.insert({
+        data: {
+          id: this.oidcUser.sub,
+          name: this.oidcUser.name,
+          email: this.oidcUser.email,
           lists: [
             {
               id: 56,
@@ -128,14 +130,14 @@ export default {
                 },
                 {
                   id: 11,
-                  body: "coca",
+                  body: "coca-cola",
                 },
               ],
             },
           ],
         },
-      ],
-    });
+      });
+    }
   },
 };
 </script>
