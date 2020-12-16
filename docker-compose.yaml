@@ -1,0 +1,51 @@
+version: "3"
+services:
+  auth-db:
+    image: postgres:11.5-alpine
+    container_name: auth-db
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_DB=auth
+      - POSTGRES_USER=auth
+      - POSTGRES_PASSWORD=auth
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - auth-server
+
+  auth-server:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: auth-server
+    ports:
+      - 8080:8080
+    depends_on:
+      - auth-db
+    environment:
+      - DB_VENDOR=postgres
+      - DB_ADDR=auth-db
+      - DB_DATABASE=auth
+      - DB_USER=auth
+      - DB_PASSWORD=auth
+      - KEYCLOAK_USER=auth
+      - KEYCLOAK_PASSWORD=auth
+    networks:
+      - auth-server
+
+  vue-ui:
+    build: .
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./:/app
+    networks:
+      - auth-server
+    depends_on:
+      - auth-server
+
+volumes:
+  pgdata:
+
+networks:
+  auth-server:
+    external: true
