@@ -12,7 +12,7 @@ export default class Item extends Model {
       list_id: this.attr(null),
 
       //relationships
-      list: this.belongsTo(List, "list_id"),
+      list: this.belongsTo(List, "list_id")
     };
   }
 }

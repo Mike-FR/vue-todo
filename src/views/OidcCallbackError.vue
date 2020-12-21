@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "OidcCallbackError",
+  name: "OidcCallbackError"
 };
 </script>

@@ -1,3 +1,14 @@
+<i18n>
+{
+  "fr": {
+    "createPlaceholder": "Créer une nouvelle note..."
+  },
+  "en": {
+    "createPlaceholder": "Create a new note..."
+  }
+}
+</i18n>
+
 <template>
   <div>
     <AppBar @searching="search = $event" />
@@ -5,7 +16,7 @@
       <v-container>
         <v-text-field
           v-model="listTitle"
-          label="Créer une nouvelle note..."
+          :label="$t('createPlaceholder')"
           solo-inverted
           counter
           maxlength="25"

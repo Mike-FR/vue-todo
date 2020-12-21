@@ -4,8 +4,8 @@ import store from "./store";
 import Login from "./views/Login.vue";
 import HomeLogged from "./views/HomeLogged.vue";
 import OidcCallback from "./views/OidcCallback.vue";
-import OidcCallbackError from "./views/OidcCallbackError.vue"
-import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
+import OidcCallbackError from "./views/OidcCallbackError.vue";
+import { vuexOidcCreateRouterMiddleware } from "vuex-oidc";
 
 Vue.use(VueRouter);
 
@@ -42,6 +42,7 @@ const router = new VueRouter({
         isPublic: true,
       },
     },
+    { path: "*", redirect: "/" },
   ],
 });
 

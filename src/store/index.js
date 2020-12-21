@@ -18,7 +18,10 @@ database.register(List);
 
 export default new Vuex.Store({
   modules: {
-    oidcStore: vuexOidcCreateStoreModule(oidcSettings, { namespaced: true, isAuthenticatedBy: 'access_token' }),
+    oidcStore: vuexOidcCreateStoreModule(oidcSettings, {
+      namespaced: true,
+      isAuthenticatedBy: "access_token"
+    })
   },
-  plugins: [VuexORM.install(database)],
+  plugins: [VuexORM.install(database)]
 });

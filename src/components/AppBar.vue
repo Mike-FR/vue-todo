@@ -1,14 +1,46 @@
+<i18n>
+{
+  "fr": {
+    "title": "Notes app",
+    "menu": {
+      "deleteAll": "Tout supprimer",
+      "logout": "Se déconnecter"
+    }
+  },
+  "en": {
+    "title": "Todo app",
+     "menu": {
+      "deleteAll": "Delete all",
+      "logout": "Logout"
+    }
+  }
+}
+</i18n>
+
 <template>
   <v-app-bar app color="indigo" dark>
+    <v-select
+      v-model="locale"
+      :items="[
+        { text: 'FR', value: 'fr' },
+        { text: 'EN', value: 'en' },
+      ]"
+      :value="$i18n.locale"
+      dense
+      outlined
+      hide-details
+      class="lang-input mr-2"
+    ></v-select>
+
     <v-app-bar-nav-icon
       ><template>
         <v-icon>mdi-format-list-bulleted</v-icon>
       </template></v-app-bar-nav-icon
     >
 
-    <v-toolbar-title>Notes app</v-toolbar-title>
+    <v-toolbar-title>{{ $t("title") }}</v-toolbar-title>
 
-    <v-spacer v-if="oidcIsAuthenticated"></v-spacer>
+    <v-spacer></v-spacer>
 
     <v-text-field
       v-if="oidcIsAuthenticated"
@@ -34,10 +66,10 @@
 
       <v-list>
         <v-list-item @click="deleteAllList">
-          <v-list-item-title>Tout supprimer</v-list-item-title>
+          <v-list-item-title>{{ $t("menu.deleteAll") }}</v-list-item-title>
         </v-list-item>
         <v-list-item @click.prevent="signOut">
-          <v-list-item-title>Se déconnecter</v-list-item-title>
+          <v-list-item-title>{{ $t("menu.logout") }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -60,10 +92,16 @@ export default {
     return {
       searchClosed: true,
       search: "",
+      locale: "fr",
     };
   },
   computed: {
     ...mapGetters("oidcStore", ["oidcIsAuthenticated", "oidcUser"]),
+  },
+  watch: {
+    locale(val) {
+      this.$root.$i18n.locale = val;
+    },
   },
   methods: {
     ...mapActions("oidcStore", ["signOutOidc"]),
@@ -74,6 +112,9 @@ export default {
       this.signOutOidc().then(() => {
         this.$router.push("/");
       });
+    },
+    setLocale(value) {
+      this.$i18n.locale = value;
     },
   },
 };
@@ -96,5 +137,10 @@ export default {
       background: transparent !important;
     }
   }
+}
+
+.lang-input {
+  width: 78px;
+  flex: none !important;
 }
 </style>

@@ -34,15 +34,17 @@
           v-if="list.checkBoxMode"
           @click="switchCheckboxMode(false)"
         >
-          Mode liste
+          {{ menuTranslation.bulletMode }}
         </v-list-item>
         <v-list-item v-else @click="switchCheckboxMode(true)">
-          Mode cases à cocher
+          {{ menuTranslation.checkboxMode }}
         </v-list-item>
         <v-list-item @click="deleteAllItems(list)">
-          Supprimer tous les éléments
+          {{ menuTranslation.deleteAllItems }}
         </v-list-item>
-        <v-list-item @click="deleteList(list)"> Supprimer la note</v-list-item>
+        <v-list-item @click="deleteList(list)">{{
+          menuTranslation.deleteList
+        }}</v-list-item>
       </v-list>
     </v-menu>
     <slot name="second-spacer"> </slot>
@@ -58,6 +60,10 @@ export default {
   props: {
     list: {
       type: List,
+      required: true,
+    },
+    menuTranslation: {
+      type: Object,
       required: true,
     },
   },

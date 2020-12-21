@@ -4,5 +4,5 @@ export const oidcSettings = {
   redirectUri: "http://localhost:8081/oidc-callback",
   responseType: "id_token token",
   scope: "openid profile",
-  post_logout_redirect_uri: "http://localhost:8081/",
+  post_logout_redirect_uri: "http://localhost:8081/"
 };

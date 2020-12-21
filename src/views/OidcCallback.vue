@@ -20,21 +20,21 @@ import { mapActions } from "vuex";
 export default {
   name: "OidcCallback",
   components: {
-    AppBar,
+    AppBar
   },
   methods: {
-    ...mapActions("oidcStore", ["oidcSignInCallback"]),
+    ...mapActions("oidcStore", ["oidcSignInCallback"])
   },
   mounted() {
     this.oidcSignInCallback()
-      .then((redirectPath) => {
+      .then(redirectPath => {
         this.$router.push(redirectPath);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
         this.$router.push("/oidc-callback-error"); // Handle errors any way you want
       });
-  },
+  }
 };
 </script>
 

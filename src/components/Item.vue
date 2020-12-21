@@ -23,7 +23,7 @@
         :label="item.body"
         :value="item.isComplete"
         :class="{
-          'on-hover': hover,
+          'on-hover': hover
         }"
         hide-details
         @click="checkItem(item)"
@@ -50,12 +50,12 @@ export default {
   props: {
     list: {
       type: List,
-      required: true,
+      required: true
     },
     item: {
       type: Item,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     editItem() {
@@ -66,8 +66,8 @@ export default {
     },
     deleteItem(item) {
       Item.delete(item.id);
-    },
-  },
+    }
+  }
 };
 </script>
 

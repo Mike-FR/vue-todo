@@ -1,3 +1,14 @@
+<i18n>
+{
+  "fr": {
+    "buttonLabel": "Se connecter"
+  },
+  "en": {
+    "buttonLabel": "Login"
+  }
+}
+</i18n>
+
 <template>
   <div v-if="hasAccess">
     <AppBar />
@@ -8,7 +19,7 @@
           :to="{ name: 'home' }"
           class="button"
           @click.prevent="authenticateOidc"
-          >Se connecter</router-link
+          >{{ $t("buttonLabel") }}</router-link
         >
       </v-container>
     </v-layout>

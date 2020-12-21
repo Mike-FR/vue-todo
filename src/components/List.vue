@@ -1,3 +1,38 @@
+<i18n>
+{
+  "fr": {
+    "list": {
+      "empty": "Cette note est vide...",
+      "addItemInput": "Ajouter un élément...",
+      "backButton": "Retour",
+      "closeButton": "Fermer",
+      "nbItems": "élément | éléments",
+      "menu": {
+        "checkboxMode": "Mode case à cocher",
+        "bulletMode": "Mode liste",
+        "deleteAllItems": "Supprimer tous les éléments",
+        "deleteList": "Supprimer la note"
+      }
+    }
+  },
+  "en": {
+    "list": {
+      "empty": "This list is empty...",
+      "addItemInput": "Add an item...",
+      "backButton": "Back",
+      "closeButton": "Close",
+      "nbItems": "item | items",
+      "menu": {
+        "checkboxMode": "Checkbox mode",
+        "bulletMode": "Bullet mode",
+        "deleteAllItems": "Delete all items",
+        "deleteList": "Delete this list"
+      }
+    }
+  }
+}
+</i18n>
+
 <template>
   <v-card
     width="252"
@@ -12,14 +47,14 @@
         {{ list.title }}
       </p>
       <v-chip v-if="nbOfItems != 0" small
-        >{{ nbOfItems }} {{ nbOfItems > 0 ? "éléments" : "élément" }}</v-chip
+        >{{ nbOfItems }} {{ $tc("list.nbItems", nbOfItems) }}</v-chip
       >
       <p v-else class="font-italic">
-        Cette note est vide...
+        {{ $t("list.empty") }}
       </p>
     </v-card-text>
 
-    <CardFooter :list="filledList">
+    <CardFooter :list="filledList" :menu-translation="$t('list.menu')">
       <template #preview-button>
         <v-btn icon @click.stop="listPreview = true">
           <v-icon>mdi-eye-outline</v-icon>
@@ -35,6 +70,8 @@
         v-if="listPreview"
         :list="filledList"
         :nb-items="nbOfItems"
+        :back-btn-text="$t('list.backButton')"
+        :menu-translation="$t('list.menu')"
         @close-preview="listPreview = false"
       />
     </v-expand-transition>
@@ -48,7 +85,7 @@
           <v-text-field
             v-model="form.body"
             type="text"
-            label="Ajouter un élément..."
+            :label="$t('list.addItemInput')"
             @keydown.enter="addItem"
           >
             <template #append>
@@ -90,11 +127,11 @@
               :item="item"
             /></ul
         ></v-card-text>
-        <CardFooter :list="filledList">
+        <CardFooter :list="filledList" :menu-translation="$t('list.menu')">
           <template #second-spacer> <v-spacer></v-spacer> </template>
           <template #close-button>
             <v-btn text @click="listModal = false">
-              Fermer
+              {{ $t("list.closeButton") }}
             </v-btn>
           </template>
         </CardFooter>

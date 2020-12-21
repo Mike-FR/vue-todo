@@ -38,11 +38,11 @@
         />
       </ul>
     </v-card-text>
-    <CardFooter :list="list">
+    <CardFooter :list="list" :menu-translation="menuTranslation">
       <template #second-spacer> <v-spacer></v-spacer> </template>
       <template #close-button>
         <v-btn text @click.stop="$emit('close-preview')">
-          Retour
+          {{ backBtnText }}
         </v-btn>
       </template>
     </CardFooter>
@@ -66,6 +66,14 @@ export default {
     },
     nbItems: {
       type: Number,
+      required: true,
+    },
+    backBtnText: {
+      type: String,
+      required: true,
+    },
+    menuTranslation: {
+      type: Object,
       required: true,
     },
   },

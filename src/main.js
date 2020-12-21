@@ -3,8 +3,11 @@ import App from "./App.vue";
 import store from "./store";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
+
 // import Keycloak from "keycloak-js";
 import VueLogger from "vuejs-logger";
+
+import i18n from "./i18n";
 
 Vue.use(VueLogger);
 
@@ -14,7 +17,8 @@ new Vue({
   router,
   store,
   vuetify,
-  render: (h) => h(App),
+  i18n,
+  render: h => h(App)
 }).$mount("#app");
 
 // let initOptions = {
