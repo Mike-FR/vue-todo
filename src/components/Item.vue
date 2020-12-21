@@ -4,7 +4,7 @@
       <li
         v-if="!list.checkBoxMode"
         contenteditable="true"
-        @blur="editItem"
+        @blur="editItem($event)"
         :class="{ 'on-hover': hover, 'is-complete': item.isComplete }"
       >
         {{ item.body }}
@@ -13,7 +13,7 @@
           small
           class="delete-btn float-right"
           :class="{ 'on-hover': hover }"
-          @click.stop="deleteItem(item)"
+          @click.stop="deleteItem"
           >mdi-close</v-icon
         >
       </li>
@@ -23,17 +23,17 @@
         :label="item.body"
         :value="item.isComplete"
         :class="{
-          'on-hover': hover
+          'on-hover': hover,
         }"
         hide-details
-        @click="checkItem(item)"
+        @click="checkItem"
       >
         <template #append>
           <v-icon
             small
             class="delete-btn float-right"
             :class="{ 'on-hover': hover }"
-            @click.stop="deleteItem(item)"
+            @click.stop="deleteItem"
             >mdi-close</v-icon
           >
         </template>
@@ -50,33 +50,39 @@ export default {
   props: {
     list: {
       type: List,
-      required: true
+      required: true,
     },
     item: {
       type: Item,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
-    editItem() {
-      console.log("edit");
+    editItem(event) {
+      Item.update({
+        where: this.item.id,
+        data: { body: event.target.innerText },
+      });
     },
-    checkItem(item) {
-      Item.update({ where: item.id, data: { isComplete: item.isComplete } });
+    checkItem() {
+      Item.update({
+        where: this.item.id,
+        data: { isComplete: this.item.isComplete },
+      });
     },
-    deleteItem(item) {
-      Item.delete(item.id);
-    }
-  }
+    deleteItem() {
+      Item.delete(this.item.id);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 li.on-hover,
 .v-input.on-hover {
-  -moz-box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.05);
 }
 
 li.is-complete {
