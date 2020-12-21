@@ -101,7 +101,14 @@ export default {
   watch: {
     locale(val) {
       this.$root.$i18n.locale = val;
+      localStorage.setItem("lang", val);
     },
+  },
+  mounted() {
+    if (!localStorage.getItem("lang")) {
+      localStorage.setItem("lang", process.env.VUE_APP_I18N_LOCALE);
+    }
+    this.locale = localStorage.getItem("lang");
   },
   methods: {
     ...mapActions("oidcStore", ["signOutOidc"]),
@@ -112,9 +119,6 @@ export default {
       this.signOutOidc().then(() => {
         this.$router.push("/");
       });
-    },
-    setLocale(value) {
-      this.$i18n.locale = value;
     },
   },
 };
