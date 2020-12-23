@@ -47,7 +47,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("oidcStore", ["authenticateOidc", "removeOidcUser"]),
+    ...mapActions("oidcStore", ["authenticateOidc"]),
   },
 };
 </script>

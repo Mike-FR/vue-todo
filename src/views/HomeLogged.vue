@@ -60,7 +60,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("oidcStore", ["oidcIsAuthenticated", "oidcUser"]),
+    ...mapGetters("oidcStore", ["oidcUser"]),
     user() {
       return User.find(this.oidcUser.sub);
     },
