@@ -1,27 +1,19 @@
 <template>
-  <div>
-    <AppBar />
-    <v-layout fill-height>
-      <v-container class="d-flex justify-center align-center">
-        <v-progress-circular
-          :size="50"
-          color="indigo"
-          indeterminate
-        ></v-progress-circular>
-      </v-container>
-    </v-layout>
-  </div>
+  <v-main class="d-flex align-center">
+    <v-container class="d-flex justify-center">
+      <v-progress-circular
+        :size="50"
+        color="indigo"
+        indeterminate
+      ></v-progress-circular>
+    </v-container>
+  </v-main>
 </template>
-
 <script>
-import AppBar from "../components/AppBar";
 import { mapActions } from "vuex";
 
 export default {
   name: "OidcCallback",
-  components: {
-    AppBar,
-  },
   methods: {
     ...mapActions("oidcStore", ["oidcSignInCallback"]),
   },
@@ -36,5 +28,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
