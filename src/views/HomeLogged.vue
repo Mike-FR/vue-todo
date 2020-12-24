@@ -10,32 +10,30 @@
 </i18n>
 
 <template>
-  <div>
-    <v-main>
-      <v-container>
-        <v-text-field
-          v-model="listTitle"
-          :label="$t('createPlaceholder')"
-          solo-inverted
-          counter
-          maxlength="25"
-          @keydown.enter="createList"
-          class="create-input mt-12 mx-auto"
-        >
-          <template #append>
-            <v-fade-transition>
-              <v-icon v-if="listTitle" color="orange" @click="createList">
-                mdi-plus-circle
-              </v-icon>
-            </v-fade-transition>
-          </template>
-        </v-text-field>
-        <v-container class="d-flex flex-wrap mt-6">
-          <List v-for="list in filteredLists" :key="list.id" :list="list" />
-        </v-container>
+  <v-main>
+    <v-container>
+      <v-text-field
+        v-model="listTitle"
+        :label="$t('createPlaceholder')"
+        solo-inverted
+        counter
+        maxlength="25"
+        @keydown.enter="createList"
+        class="create-input mt-12 mx-auto"
+      >
+        <template #append>
+          <v-fade-transition>
+            <v-icon v-if="listTitle" color="orange" @click="createList">
+              mdi-plus-circle
+            </v-icon>
+          </v-fade-transition>
+        </template>
+      </v-text-field>
+      <v-container class="d-flex flex-wrap mt-6">
+        <List v-for="list in filteredLists" :key="list.id" :list="list" />
       </v-container>
-    </v-main>
-  </div>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

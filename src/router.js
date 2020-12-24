@@ -1,10 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "./store";
-import Login from "./views/Login.vue";
-import HomeLogged from "./views/HomeLogged.vue";
-import OidcCallback from "./views/OidcCallback.vue";
-import OidcCallbackError from "./views/OidcCallbackError.vue";
+const Login = () => import("./views/Login.vue");
+const HomeLogged = () => import("./views/HomeLogged.vue");
+const OidcCallback = () => import("./views/OidcCallback.vue");
+const OidcCallbackError = () => import("./views/OidcCallbackError.vue");
+
 import { vuexOidcCreateRouterMiddleware } from "vuex-oidc";
 
 Vue.use(VueRouter);

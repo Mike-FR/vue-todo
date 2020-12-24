@@ -10,19 +10,17 @@
 </i18n>
 
 <template>
-  <div v-if="hasAccess">
-    <v-layout fill-height>
-      <v-container class="d-flex justify-center align-center">
-        <router-link
-          tag="button"
-          :to="{ name: 'home' }"
-          class="button"
-          @click.prevent="authenticateOidc"
-          >{{ $t("buttonLabel") }}</router-link
-        >
-      </v-container>
-    </v-layout>
-  </div>
+  <v-main v-if="hasAccess" class="d-flex align-center">
+    <v-container class="d-flex justify-center">
+      <router-link
+        tag="button"
+        :to="{ name: 'home' }"
+        class="button"
+        @click.prevent="authenticateOidc"
+        >{{ $t("buttonLabel") }}</router-link
+      >
+    </v-container>
+  </v-main>
 </template>
 
 <script>

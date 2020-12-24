@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <AppBar/>
-    <router-view class="main" />
+    <router-view />
   </v-app>
 </template>
 
@@ -17,8 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
-.main {
+.v-main {
   background-color: #e8eaf6;
-  height: 100%;
 }
 </style>

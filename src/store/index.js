@@ -26,7 +26,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    searchValue: (state) => state.search,
+    searchValue: (state) => (state.search === null ? "" : state.search),
   },
   modules: {
     oidcStore: vuexOidcCreateStoreModule(oidcSettings, {
