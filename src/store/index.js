@@ -17,11 +17,22 @@ database.register(User);
 database.register(List);
 
 export default new Vuex.Store({
+  state: {
+    search: "",
+  },
+  mutations: {
+    searching(state, value) {
+      state.search = value;
+    },
+  },
+  getters: {
+    searchValue: (state) => state.search,
+  },
   modules: {
     oidcStore: vuexOidcCreateStoreModule(oidcSettings, {
       namespaced: true,
-      isAuthenticatedBy: "access_token"
-    })
+      isAuthenticatedBy: "access_token",
+    }),
   },
-  plugins: [VuexORM.install(database)]
+  plugins: [VuexORM.install(database)],
 });

@@ -54,7 +54,6 @@
       :class="{ closed: searchClosed && !search }"
       @focus="searchClosed = false"
       @blur="searchClosed = true"
-      @input="$emit('searching', $event)"
     ></v-text-field>
 
     <v-menu v-if="oidcIsAuthenticated" left bottom>
@@ -91,12 +90,19 @@ export default {
   data() {
     return {
       searchClosed: true,
-      search: "",
       locale: "fr",
     };
   },
   computed: {
     ...mapGetters("oidcStore", ["oidcIsAuthenticated", "oidcUser"]),
+    search: {
+      get() {
+        return this.$store.state.search;
+      },
+      set(value) {
+        this.$store.commit("searching", value);
+      },
+    },
   },
   watch: {
     locale(val) {

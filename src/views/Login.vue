@@ -11,7 +11,6 @@
 
 <template>
   <div v-if="hasAccess">
-    <AppBar />
     <v-layout fill-height>
       <v-container class="d-flex justify-center align-center">
         <router-link
@@ -27,14 +26,10 @@
 </template>
 
 <script>
-import AppBar from "../components/AppBar";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Login",
-  components: {
-    AppBar,
-  },
   computed: {
     ...mapGetters("oidcStore", ["oidcIsAuthenticated"]),
     hasAccess() {

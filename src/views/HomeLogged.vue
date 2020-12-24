@@ -11,7 +11,6 @@
 
 <template>
   <div>
-    <AppBar @searching="search = $event" />
     <v-main>
       <v-container>
         <v-text-field
@@ -43,7 +42,6 @@
 import List from "../classes/List";
 import User from "../classes/User";
 import ListComponent from "../components/List";
-import AppBar from "../components/AppBar";
 
 import { mapGetters } from "vuex";
 
@@ -51,16 +49,15 @@ export default {
   name: "HomeLogged",
   components: {
     List: ListComponent,
-    AppBar,
   },
   data() {
     return {
       listTitle: "",
-      search: "",
     };
   },
   computed: {
     ...mapGetters("oidcStore", ["oidcUser"]),
+    ...mapGetters(["searchValue"]),
     user() {
       return User.find(this.oidcUser.sub);
     },
@@ -68,7 +65,7 @@ export default {
       return List.query()
         .where("user_id", this.user.id)
         .where("title", (value) =>
-          value.toLowerCase().includes(this.search.toLowerCase())
+          value.toLowerCase().includes(this.searchValue.toLowerCase())
         )
         .get();
     },
