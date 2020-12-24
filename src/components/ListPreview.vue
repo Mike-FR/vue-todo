@@ -10,7 +10,7 @@
         class="v-card--reveal-content"
         :class="{ 'remove-padding': list.checkBoxMode }"
       >
-        <Item
+        <ListItem
           v-for="item in todoItemsList"
           :key="item.id"
           :list="list"
@@ -30,7 +30,7 @@
               : `${completeItemsList.length} élément terminé`
           }}
         </p>
-        <Item
+        <ListItem
           v-for="item in completeItemsList"
           :key="item.id"
           :list="list"
@@ -38,26 +38,26 @@
         />
       </ul>
     </v-card-text>
-    <CardFooter :list="list" :menu-translation="menuTranslation">
+    <ListFooter :list="list" :menu-translation="menuTranslation">
       <template #second-spacer> <v-spacer></v-spacer> </template>
       <template #close-button>
         <v-btn text @click.stop="$emit('close-preview')">
           {{ backBtnText }}
         </v-btn>
       </template>
-    </CardFooter>
+    </ListFooter>
   </v-card>
 </template>
 
 <script>
 import List from "../classes/List";
-import ItemComponent from "../components/Item";
-import CardFooter from "../components/CardFooter";
+import ListItem from "../components/ListItem";
+import ListFooter from "../components/ListFooter";
 
 export default {
   components: {
-    Item: ItemComponent,
-    CardFooter,
+    ListItem,
+    ListFooter,
   },
   props: {
     list: {

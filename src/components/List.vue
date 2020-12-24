@@ -54,7 +54,7 @@
       </p>
     </v-card-text>
 
-    <CardFooter :list="filledList" :menu-translation="$t('list.menu')">
+    <ListFooter :list="filledList" :menu-translation="$t('list.menu')">
       <template #preview-button>
         <v-btn icon @click.stop="listPreview = true">
           <v-icon>mdi-eye-outline</v-icon>
@@ -63,7 +63,7 @@
       <template #first-spacer>
         <v-spacer></v-spacer>
       </template>
-    </CardFooter>
+    </ListFooter>
 
     <v-expand-transition>
       <ListPreview
@@ -100,7 +100,7 @@
             class="v-card--dialog-content"
             :class="{ 'remove-padding': list.checkBoxMode }"
           >
-            <Item
+            <ListItem
               v-for="item in todoItemsList"
               :key="item.id"
               :list="filledList"
@@ -120,21 +120,21 @@
                   : `${completeItemsList.length} élément terminé`
               }}
             </p>
-            <Item
+            <ListItem
               v-for="item in completeItemsList"
               :key="item.id"
               :list="filledList"
               :item="item"
             /></ul
         ></v-card-text>
-        <CardFooter :list="filledList" :menu-translation="$t('list.menu')">
+        <ListFooter :list="filledList" :menu-translation="$t('list.menu')">
           <template #second-spacer> <v-spacer></v-spacer> </template>
           <template #close-button>
             <v-btn text @click="listModal = false">
               {{ $t("list.closeButton") }}
             </v-btn>
           </template>
-        </CardFooter>
+        </ListFooter>
       </v-card>
     </v-dialog>
   </v-card>
@@ -143,15 +143,15 @@
 <script>
 import List from "../classes/List";
 import Item from "../classes/Item";
-import ItemComponent from "../components/Item";
+import ListItem from "../components/ListItem";
 import ListPreview from "../components/ListPreview";
-import CardFooter from "../components/CardFooter";
+import ListFooter from "../components/ListFooter";
 
 export default {
   components: {
-    Item: ItemComponent,
+    ListItem,
     ListPreview,
-    CardFooter,
+    ListFooter,
   },
   props: {
     list: {
